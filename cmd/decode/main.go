@@ -31,8 +31,7 @@ func main() {
             decode.Echo(encodedStr, decode.DecodeBase64(encodedStr))
             os.Exit(0)
         } else if (decode.IsBase32(encodedStr)) {
-            fmt.Printf("Original:\t%s\n", encodedStr)
-            decode.Echo(encodedStr, decode.DecodeBase64(encodedStr))
+            decode.Echo(encodedStr, decode.DecodeBase32(encodedStr))
             os.Exit(0)
         }
     }
