@@ -41,7 +41,7 @@ func IsBase64(encodedStr string) bool {
 }
 
 func IsBase32(encodedStr string) bool {
-    _, err := base64.StdEncoding.DecodeString(encodedStr)
+    _, err := base32.StdEncoding.DecodeString(encodedStr)
 
     if err != nil {
         return false

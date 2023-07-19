@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"d4r10us/decode/pkg/decode"
 	"flag"
-	"fmt"
 	"os"
 )
 
