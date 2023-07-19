@@ -34,7 +34,7 @@ func IsBase64(encodedStr string) bool {
     _, err := base64.StdEncoding.DecodeString(encodedStr)
 
     if err != nil {
-        return true
+        return false
     }
 
     return true
@@ -44,7 +44,7 @@ func IsBase32(encodedStr string) bool {
     _, err := base64.StdEncoding.DecodeString(encodedStr)
 
     if err != nil {
-        return true
+        return false
     }
 
     return true
@@ -57,3 +57,4 @@ func Echo(encoded, decode string) {
     color.Cyan(decode)
     color.Green("===================")
 }
+
