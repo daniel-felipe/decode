@@ -4,37 +4,45 @@ import (
 	"bufio"
 	"d4r10us/decode/pkg/decode"
 	"flag"
+	"fmt"
 	"os"
 )
 
+func getArg() string {
+    if len(os.Args) >= 2 {
+        encodedStr := os.Args[1]
+
+        return encodedStr
+    } 
+
+    r := bufio.NewReader(os.Stdin)
+    encodedStr, err := r.ReadString('\n')
+
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error: %v", err)
+        os.Exit(1)
+    }
+
+    return encodedStr
+}
+
 func main() {
-    b64 := flag.String("base64", "", "Decode base64 string.") 
-    b32 := flag.String("base32", "", "Decode base32 string.") 
+    b64 := flag.Bool("b64", true, "Decode base64 string.") 
+    b32 := flag.Bool("b32", false, "Decode base32 string.") 
     flag.Parse()
 
-    if *b64 != "" {
-        decode.Echo(*b64, decode.DecodeBase64(*b64))
-        os.Exit(0)
-    } else if *b32 != "" {
-        decode.Echo(*b32, decode.DecodeBase32(*b32))
+    encodedStr := getArg()
+
+    if *b64 {
+        decoded := decode.DecodeBase64(encodedStr)     
+        decode.Echo(encodedStr, decoded) 
         os.Exit(0)
     }
     
-    if *b64 == "" && *b32 == "" {
-        scanner := bufio.NewScanner(os.Stdin)
-        scanner.Scan()
-        
-        encodedStr := scanner.Text()
-        
-        if (decode.IsBase64(encodedStr)) {
-            decode.Echo(encodedStr, decode.DecodeBase64(encodedStr))
-            os.Exit(0)
-        } else if (decode.IsBase32(encodedStr)) {
-            decode.Echo(encodedStr, decode.DecodeBase32(encodedStr))
-            os.Exit(0)
-        }
+    if *b32 {
+        decoded := decode.DecodeBase32(encodedStr)
+        decode.Echo(encodedStr, decoded)
+        os.Exit(0)
     }
-
-    os.Exit(1)
 }
 

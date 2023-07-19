@@ -50,11 +50,9 @@ func IsBase32(encodedStr string) bool {
     return true
 }
 
-func Echo(encoded, decode string) {
-    color.Green("===================")
-    fmt.Printf("Input:\t%s\n", encoded)
-    fmt.Printf("Result:\t")
-    color.Cyan(decode)
-    color.Green("===================")
+func Echo(encoded, decoded string) {
+    fmt.Printf("=> %s\n", encoded)
+    fmt.Printf("=> ")
+    color.Cyan("%s\n", decoded)
 }
 
